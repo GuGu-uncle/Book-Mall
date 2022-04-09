@@ -35,6 +35,7 @@
 
 <script>
 	import {apiLogin,apiUserInfo} from '../../config/api.js'
+	import {toBack} from '@/config/utils.js'
 	export default {
 		data() {
 			return {
@@ -67,14 +68,8 @@
 					title:'登录成功',
 					icon:'success',
 					success:()=>{
-						// 获取页面路径和请求参数
-						let route = uni.getStorageSync('route')||'pages/index/index'
-						let params = uni.getStorageSync('params')
-						setTimeout(()=>{
-							uni.reLaunch({
-								url:"/" + route + params //例：/pages/index/index?id=123&a=11
-							})
-						},1000)
+						// 返回跳转前的页面
+						toBack()
 					}
 				})
 			}

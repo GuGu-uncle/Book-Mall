@@ -47,23 +47,7 @@
 				></u-loading-icon>
 			</view>
 			<!-- 商品列表 -->
-		    <u-grid
-					:border="false"
-					@click="click"
-					col="2"
-			>
-				<u-grid-item
-						v-for="(item,index) in indexList"
-						:key="index"
-				>
-					<u-icon
-							:customStyle="{paddingTop:20+'rpx'}"
-							:size="22"
-					></u-icon>
-					<!-- 自定义组件 -->
-					<goods-cart :goods="item"></goods-cart>
-				</u-grid-item>
-			</u-grid>
+		    <goods-cart :goodsList="indexList"></goods-cart><!-- 引入自定义组件 -->
 		</view>
 	</view>
 </template>
@@ -83,16 +67,21 @@
 				],
 				indexList:[],
 				index:0,//展示商品分类
-				page:1//商品页数
+				page:1,//商品页数
+				isLast:false//判断当前获取的数据是否是最后一页
 			}
 		},
-		async onLoad() {
-			const res=await apiIndex()
-			this.slidesImg=res.slides
-			this.indexList=res.goods.data
+		 onLoad() {
+			 // 获取初始化数据
+			this.getData()
 		},
 		methods: {
-			
+			// 获取初始化数据调用的函数
+			async getData(){
+				const res=await apiIndex()
+				this.slidesImg=res.slides
+				this.indexList=res.goods.data
+			},
 			// 获取分类商品
 			commodityClassification(classification){
 				this.index=classification.index
@@ -106,16 +95,22 @@
 			// 增加商品列表
 			async addGoods(){
 				let page=this.page
-				if(this.index===0) this.indexList.push(...(await apiIndex({page})).goods.data)
-				if(this.index===1) this.indexList.push(...(await apiIndex({sales:1,page})).goods.data)
-				if(this.index===2) this.indexList.push(...(await apiIndex({recommend:1,page})).goods.data)
-				if(this.index===3) this.indexList.push(...(await apiIndex({new:1,page})).goods.data)
+				let res
+				if(this.index===0) res = await apiIndex({page})
+				if(this.index===1) res = await apiIndex({sales:1,page})
+				if(this.index===2) res = await apiIndex({recommend:1,page})
+				if(this.index===3) res = await apiIndex({new:1,page})
+				this.indexList.push(...res.goods.data)
+				//判断当前数据是否是最后一页
+				this.isLast = res.goods.next_page_url?false:true
 				this.page++
 			},
 		},
 		async onReachBottom(){
 			// 增加商品列表
-			this.addGoods()
+			if(!this.isLast){
+				this.addGoods()
+			}
 		}
 	}
 </script>

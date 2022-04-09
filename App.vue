@@ -18,4 +18,6 @@
 <style lang="scss">
 	/* uview-ui */
 	@import "uview-ui/index.scss";
+	// iconfont
+	@import '@/static/iconfont/iconfont.css'
 </style>

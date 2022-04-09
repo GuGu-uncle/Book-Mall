@@ -1,5 +1,5 @@
 import store from '@/store'
-import {Login} from './utils.js'
+import {login} from './utils.js'
 // 此vm参数为页面的实例，可以通过它引用vuex中的变量
 module.exports = (vm) => {
     // 初始化请求配置
@@ -55,7 +55,7 @@ module.exports = (vm) => {
 				})
 			}else{
 				// 请求了需要登录获取token的api,跳转至登录页面
-				Login()
+				login()
 			}
 		}else if(statusCode===422){
 			const {errors}=data

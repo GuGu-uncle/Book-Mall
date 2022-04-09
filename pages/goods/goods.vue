@@ -1,7 +1,7 @@
 <template>
-	<view>
-		商品
-		<u-tabs :list="list1" :scrollable='false'></u-tabs>
+	<view class="container" @click="a($event)">
+		<view id="1">111</view>
+		<view id="2">222</view>
 	</view>
 </template>
 
@@ -9,17 +9,15 @@
 	export default {
 		data() {
 			return {
-				list1:[
-					{name:'默认'},
-					{name:'销量'},
-					{name:'推荐'},
-					{name:'最新'}
-				]
 			}
 		},
-		methods: {
-			
+		methods:{
+			a(a){
+				console.log(a)
+				console.log(event)
+			}
 		}
+
 	}
 </script>
 
