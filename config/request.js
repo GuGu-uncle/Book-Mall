@@ -68,7 +68,7 @@ module.exports = (vm) => {
     	return Promise.reject(response)
     })
 	// 增加patch请求
-	vm.$u.patch=(url,params={},header={})=>{
+	vm.$u.http.patch=(url,params={},header={})=>{
 		// 模拟patch请求
 		const _params={
 			...params,

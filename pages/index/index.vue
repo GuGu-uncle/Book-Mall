@@ -37,7 +37,7 @@
 		<!-- 商品 -->
 		<view class="goods">
 			<!-- 加载动画 -->
-			<view class="loading" v-show="!indexList.length">
+			<view class="loading" v-if="!indexList.length">
 				<u-loading-icon 
 					size="100rpx"
 					text="加载中" 

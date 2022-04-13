@@ -8,8 +8,8 @@
 			</view>
 			<view class="title">{{goods.title}}</view>
 			<view class="price-sales">
-				<view class="price">￥ {{goods.price}}</view>
-				<view class="sales">销量 {{goods.sales}}</view>
+				<view class="price">￥ {{goods.price || ''}}</view>
+				<view class="sales">销量 {{goods.sales || ''}}</view>
 			</view>
 		</view>
 		
@@ -37,7 +37,7 @@
 		</view>
 		
 		<!-- 商品评论 -->
-		<view class="commentList" v-show="isShow===1" ref="comment" :style="style">
+		<scroll-view scroll-y class="commentList" v-show="isShow===1" ref="comment">
 			<view class="comment" v-for="item in commentList" :key="item.id">
 				<u--image :showLoading="true" :src="item.user.avatar_url" width="80rpx" height="80rpx" @click="click"></u--image>
 				<view class="info">
@@ -46,7 +46,7 @@
 					<view class="time">{{item.created_at}}</view>
 				</view>
 			</view>
-		</view>
+		</scroll-view>
 		
 		<!-- 推荐商品 -->
 		<view class="recommend" v-show="isShow===2">
@@ -65,7 +65,7 @@
 					<view class="content" style="color:red">已收藏</view>
 				</block>
 			</view>
-			<view class="cart">
+			<view class="cart" @click="toCart">
 				<view class="cartIconNumber">
 					<u-icon name="shopping-cart" size="50rpx"></u-icon>
 					<u-badge 
@@ -89,7 +89,6 @@
 	export default {
 		data() {
 			return {
-				style:{},// container的样式
 				goods:{},//商品信息
 				like_goods:[],//推荐商品列表
 				list: [{name: '商品详情'}, {name: '商品评论',badge: {value: 0}}, {name: '推荐商品'}],
@@ -122,14 +121,6 @@
 			// 点击tabs调用的函数
 			change(event){
 				this.isShow=event.index// 当点击不同的tabs标签时，改变isShow
-				 if(event.index){
-					 setTimeout(()=>{
-						 // 如果评论区的高度过短则令评论区的高度为800rpx,立即购买等功能始终在最底下
-						if(this.$refs.comment.$el.offsetHeight<800){
-							this.$set(this.style,'height','800rpx')
-						}
-					 },0)
-				 }
 			},
 			// 点击收藏调用的函数
 			async collect(){
@@ -154,6 +145,12 @@
 							this.value = (await apiCartList()).data.length//获取购物车里商品的数量
 						}
 					}
+				})
+			},
+			toCart(){
+				uni.$u.route({
+					type:'switchTab',
+					url: '/pages/cart/cart'
 				})
 			}
 		}
@@ -197,6 +194,7 @@
 		// 商品评论
 		.commentList{
 			padding:20rpx;
+			height: 640rpx;
 			.comment{
 				display:flex;
 				margin-bottom:20rpx;

@@ -1,7 +1,7 @@
 <script>
 	export default {
 		globalData: {  
-			text: '123456789'  
+			userName:''
 		},
 		onLaunch: function() {
 			console.log('App Launch')

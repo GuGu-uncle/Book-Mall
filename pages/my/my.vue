@@ -1,6 +1,7 @@
 <template>
 	<view class='container'>
 		<view class="user">
+			<!-- 头像 -->
 			<u--image 
 				shape="circle" 
 				:showLoading="true" 
@@ -8,6 +9,7 @@
 				width="160rpx" 
 				height="160rpx"
 			></u--image>
+			<!-- 用户信息 -->
 			<view class="info">
 				<view class="name">{{user.name}}</view>
 				<view class="email">邮箱: {{user.email}}</view>
@@ -39,7 +41,8 @@
 	export default {
 		data() {
 			return {
-				user:{},
+				userName:'',//用户名
+				user:{},//用户信息
 				list:[
 					{name:'iconfont icon-shouye',text:'所有订单'},
 					{name:'iconfont icon-shoucang',text:'商品收藏'},
@@ -47,12 +50,15 @@
 				]
 			}
 		},
-		onLoad() {
+		onShow() {
 			// 判断用户的token是否为空,为空则跳转至登录页面
-			if(login()) return
-			this.user = uni.getStorageSync('user')
+			this.getData()
 		},
 		methods: {
+			getData(){
+				if(login()) return
+				this.user = uni.getStorageSync('user')
+			},
 			pageInfo(){
 				// 获取当前页面的路径跟参数
 				beforeInfo()

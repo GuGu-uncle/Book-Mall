@@ -54,10 +54,16 @@
 			// 校验
 			submit() {
 				this.$refs.form1.validate().then(async (res) => {
-					uni.$u.toast('校验通过')
+					uni.$u.toast('修改成功')
 					await apiUpdateUserInfo({name:this.model1.userInfo.name})//更新用户名
-					updateUser()//更新用户信息
-					toBack()//返回跳转前的页面
+					//更新用户信息
+					await updateUser()
+					//返回跳转前的页面
+					setTimeout(() => {
+						uni.switchTab({
+							url:'/pages/my/my'
+						})
+					},1)
 				}).catch(errors => {
 					console.log(errors)
 					uni.$u.toast('校验失败')

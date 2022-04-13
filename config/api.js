@@ -8,7 +8,11 @@ const apiUpdateUserAvatar = params => http.post('/api/user/avatar',params)// pos
 const apiGoods = id => http.get(`/api/goods/${id}`)// 商品详情
 const apiCollectsGoods = id => http.post(`/api/collects/goods/${id}`)// 收藏或取消收藏
 const apiAddCart = params => http.post('/api/carts',params)// 加入购物车
-const apiCartList = id => http.get('/api/carts')// 购物车列表
+const apiCartList = params => http.get('/api/carts',{params})// 购物车列表
+const apiGoodsList = params => http.get('/api/goods',{params})// 商品列表
+const apiCartChecked = params => http.patch('/api/carts/checked',params)// 购物车改变选中
+const apiCartNum = (id,params) => http.put(`/api/carts/${id}`,params)// 购物车某个商品的数量
+const apiCartDelete = id => http.delete(`/api/carts/${id}`)// 移出购物车
 
 
 // 认证api
@@ -28,6 +32,10 @@ export {
 	apiCollectsGoods,
 	apiAddCart,
 	apiCartList,
+	apiGoodsList,
+	apiCartChecked,
+	apiCartNum,
+	apiCartDelete,
 	// 认证api
 	apiRegister,
 	apiLogin,
