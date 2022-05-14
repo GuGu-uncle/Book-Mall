@@ -43,7 +43,7 @@
 								:min="1" 
 								:max="item.goods.stock?item.goods.stock:100" 
 								v-model="item.num"
-								buttonSize="24" 
+								buttonSize="40" 
 								inputWidth="30"
 								bgColor="#f4f4f4"
 								:name="item.id"
@@ -210,8 +210,9 @@
 
 <style lang="scss">
 	.container{
-		height: 79vh;
-		margin:40rpx;
+		position:relative;
+		height: 1050rpx;
+		margin:0 40rpx;
 		// 商品列表
 		.goodsList{
 			height: 960rpx;
@@ -265,7 +266,8 @@
 			display:flex;
 			justify-content:space-between;
 			align-items:center;
-			margin-top:20rpx;
+			position:absolute;
+			bottom:0rpx;
 			// 全部
 			.all{
 				font-size:36rpx;

@@ -63,6 +63,7 @@
 				// 获取当前页面的路径跟参数
 				beforeInfo()
 			},
+			// 点击退出登录的回调
 			logout(){
 				uni.showModal({
 					title: '提示',
