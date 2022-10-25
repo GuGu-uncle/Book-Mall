@@ -55,6 +55,8 @@ module.exports = (vm) => {
 				})
 			}else{
 				// 请求了需要登录获取token的api,跳转至登录页面
+				uni.removeStorageSync('token')
+				uni.removeStorageSync('user')
 				login()
 			}
 		}else if(statusCode===422){
@@ -68,12 +70,12 @@ module.exports = (vm) => {
     	return Promise.reject(response)
     })
 	// 增加patch请求
-	vm.$u.http.patch=(url,params={},header={})=>{
+	vm.$u.http.patch=( url, params = {} )=>{
 		// 模拟patch请求
 		const _params={
 			...params,
 			_method:'PATCH'
 		}
-		return uni.$u.http.post(url,_params,header)
+		return uni.$u.http.post( url, _params )
 	}
 }

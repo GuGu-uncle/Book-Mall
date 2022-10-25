@@ -1,8 +1,8 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 3305784 */
-  src: url('https://at.alicdn.com/t/font_3305784_59euvqc8de8.woff2?t=1649223543834') format('woff2'),
-       url('https://at.alicdn.com/t/font_3305784_59euvqc8de8.woff?t=1649223543834') format('woff'),
-       url('https://at.alicdn.com/t/font_3305784_59euvqc8de8.ttf?t=1649223543834') format('truetype');
+  font-family: "iconfont"; /* Project id 3475267 */
+  src: url('@/static/iconfont/iconfont.woff2?t=1655712225207') format('woff2'),
+       url('@/static/iconfont/iconfont.woff?t=1655712225207') format('woff'),
+       url('@/static/iconfont/iconfont.ttf?t=1655712225207') format('truetype');
 }
 
 .iconfont {
@@ -13,22 +13,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-bianji:before {
+  content: "\e601";
+}
+
+.icon-shoucang:before {
+  content: "\e600";
+}
+
+.icon-xiangyou1:before {
+  content: "\e775";
+}
+
 .icon-dizhi:before {
   content: "\e652";
 }
 
-.icon-shouye:before {
-  content: "\e626";
+.icon-tuichu:before {
+  content: "\e892";
 }
 
-.icon-gerenxinxi_o:before {
-  content: "\ebcc";
+.icon-gerenxinxi:before {
+  content: "\eb45";
 }
 
-.icon-tuichudenglu:before {
-  content: "\e61e";
+.icon-dingdan:before {
+  content: "\e8ae";
 }
 
-.icon-shoucang:before {
-  content: "\e8b9";
-}

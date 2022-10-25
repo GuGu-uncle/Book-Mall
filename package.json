@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "qrcode": "^1.5.1",
     "uview-ui": "^2.0.29"
   },
   "devDependencies": {},

@@ -43,15 +43,13 @@
 				password:'',
 			}
 		},
-		onLoad(){
-			
-		},
 		computed:{
 			buttonStyle(){
 				let style={}
 				if(uni.$u.test.email(this.email)&&this.password){
 					style.color="#fff"
-					style.backgroundColor="skyblue"
+					style['background-color'] = "skyblue"
+					return 'color:#fff;background-color:skyblue'
 				}
 				return style
 			}
@@ -77,7 +75,7 @@
 	}
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 	/* 顶部 */
 	.header{
 		font-size:60rpx;

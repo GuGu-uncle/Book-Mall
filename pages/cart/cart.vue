@@ -5,8 +5,7 @@
 			<view 
 				class="goodsItem" 
 				v-for="item in goodsList" 
-				:key="item.id"
-			>
+				:key="item.id">
 				<!-- 单选 -->
 				<radio 
 					:checked="item.is_checked===1 && item.goods.stock !=0"
@@ -43,8 +42,8 @@
 								:min="1" 
 								:max="item.goods.stock?item.goods.stock:100" 
 								v-model="item.num"
-								buttonSize="24" 
-								inputWidth="30"
+								buttonSize="48" 
+								inputWidth="80"
 								bgColor="#f4f4f4"
 								:name="item.id"
 								@change="handleNum"
@@ -72,7 +71,7 @@
 			><view class="all">全选</view></radio>
 			<view class="money-settlement">
 				<view class="total">合计<text class="money">￥{{money}}</text></view>
-				<view class="settlement">去结算</view>
+				<view class="settlement" @click="goTrade">去结算</view>
 			</view>
 		</view>
 	</view>
@@ -99,7 +98,6 @@
 			async getData(){
 				let res = (await apiCartList({include:'goods'})).data
 				this.goodsList = res
-				// console.log(this.goodsList)
 				// 价格
 				let price = []
 				// 数量
@@ -129,7 +127,13 @@
 				}
 				
 				// 如果商品列表的数量跟选中的数量相等则全选
+				if(this.Arr.length != 0)
 				this.isWholeChecked = res.length == this.Arr.length
+				
+				// 如果Arr的长度跟goodsList的长度不一致（有库存为0的商品）
+				// 发送更改选中的请求
+				if(this.Arr.length !== this.goodsList)
+				await apiCartChecked({cart_ids:this.Arr})
 			},
 			// 商品勾点击勾选时触发
 			async handleCartChecked(id){
@@ -203,18 +207,29 @@
 				}
 				// 更新数据
 				this.getData()
+			},
+			// 去订单页面
+			goTrade(){
+				uni.$u.route({
+					type:'navigateTo',
+					url: '/pages/trade/trade'
+				})
 			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container{
-		height: 79vh;
-		margin:40rpx;
+		padding:40rpx;
 		// 商品列表
 		.goodsList{
-			height: 960rpx;
+			/* #ifdef H5 */
+			height: calc(100vh - 400rpx);
+			/* #endif */
+			/* #ifndef H5 */
+			height: calc(100vh - 212rpx);
+			/* #endif */
 			.goodsItem{
 				display:flex;
 				align-items:center;
@@ -265,7 +280,7 @@
 			display:flex;
 			justify-content:space-between;
 			align-items:center;
-			margin-top:20rpx;
+			margin-top:30rpx;
 			// 全部
 			.all{
 				font-size:36rpx;

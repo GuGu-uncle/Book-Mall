@@ -3,6 +3,8 @@
 		<!-- 输入框 -->
 		<view class="search">
 			<u-search 
+				searchIconSize="40"
+				height="60"
 				placeholder="输入商品名称" 
 				v-model="keyword" 
 				@custom="handleSearch"
@@ -10,7 +12,19 @@
 			></u-search>
 		</view>
 		<!-- tabs标签 -->
-		<u-tabs :list="list" lineWidth="30" :scrollable="false" @click="handleTabs"></u-tabs>
+		<u-tabs 
+			:list="list" 
+			lineWidth="80rpx" 
+			:scrollable="false" 
+			@click="handleTabs" 
+			lineHeight="7"
+			:activeStyle="{
+				color: '#303133',
+				fontWeight: 'bold',
+				transform: 'scale(1.05)',
+				fontSize:'34rpx'
+			}"
+		></u-tabs>
 		<!-- 商品分类 -->
 		<view class="content">
 			<scroll-view class="classificationSrcoll" scroll-y>
@@ -30,23 +44,22 @@
 			<!-- 商品列表 -->
 			<scroll-view class="goodsList" scroll-y @scrolltolower="addGoods">
 				<u-grid
-						:border="false"
-						col="2"
+					:border="false"
+					col="2"
 				>
 					<!-- 商品 -->
 					<u-grid-item
-							v-for="(item,index) in goods"
-							:key="index"
-							 
+						v-for="(item,index) in goods"
+						:key="index"
 					>	
 						<!-- 点击时跳转到商品详情页 -->
 						<navigator class="goods" :url="`/pages/goods/show?id=${item.id}`">
 							<u--image
+								class="margin"
+								width="calc((100vh - 400rpx) / 5.4)"
+								height="calc((100vh - 400rpx) / 5.4)"
 								:showLoading="true" 
 								:src="item.cover_url" 
-								width="120rpx" 
-								height="120rpx"
-								class="margin"
 							></u--image>
 							<view class="goodsName margin">{{item.title}}</view>
 						</navigator>
@@ -95,7 +108,6 @@
 			async init(){
 				// 获取商品分类和默认商品数据
 				let res = await apiGoodsList()
-				console.log(res)
 				this.categories = res.categories
 				this.goods.push(...res.goods.data)
 				this.page++
@@ -159,7 +171,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	// 搜索框
 	.search{
 		padding:20rpx;
@@ -168,9 +180,20 @@
 	.content{
 		display:flex;
 		margin-top:20rpx;
+		// 仅在H5
+		// #ifdef H5
+		height: calc(100vh - 400rpx);
+		// #endif
+		 
+		// 除了H5
+		// #ifndef H5
+		height: calc(100vh - 214rpx);
+		// #endif
+		
+		// 分类
 		.classificationSrcoll{
-			width: 180rpx;;
-			height: 900rpx;
+			width: 180rpx;
+			
 			background-color:#d0d0d0;
 			.classification{
 				padding:20rpx 0;
@@ -179,15 +202,31 @@
 		}
 		// 商品
 		.goodsList{
-			height: 900rpx;
+			
 			.goods{
 				display:flex;
 				flex-direction:column;
 				align-items:center;
 				margin-top:30rpx;
 				width: 300rpx;
+				
+				// 仅在H5
+				// #ifdef H5
+				height: calc((100vh - 400rpx) / 4.5);
+				// #endif
+				 
+				// 除了H5
+				// #ifndef H5
+				height: calc((100vh - 400rpx) / 4.5);
+				// #endif
+				
+				.margin {
+					// width: calc((100vh - 400rpx) / 5.5);
+					// height: calc((100vh - 400rpx) / 5.5);
+				}
+				
 				.goodsName{
-					font-size:28rpx;
+					font-size: 34rpx;
 				}
 			}
 		}

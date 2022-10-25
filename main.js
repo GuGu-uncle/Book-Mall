@@ -10,6 +10,7 @@ Vue.config.productionTip = false
 // uview-ui
 import uView from "uview-ui";
 Vue.use(uView);
+uni.$u.config.unit = 'rpx'
 App.mpType = 'app'
 const app = new Vue({
 	store,

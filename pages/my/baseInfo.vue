@@ -1,4 +1,5 @@
 <template>
+	<!-- 修改用户名 -->
 	<view class="container">
 		<u--form
 				labelPosition="left"
@@ -6,6 +7,8 @@
 				:rules="rules"
 				ref="form1"
 				:errorType="errorType"
+				labelWidth="80"
+				:labelStyle="{fontSize:'34rpx'}"
 		>
 			<u-form-item
 				required
@@ -17,9 +20,10 @@
 				<u--input
 						v-model="model1.userInfo.name"
 						border="none"
+						fontSize="34"
 				></u--input>
 			</u-form-item>
-			<u-button @click="submit">提交</u-button>
+			<u-button type="primary" @click="submit" :customStyle="{marginTop:'20rpx',fontSize:'36rpx'}">提交</u-button>
 		</u--form>
 	</view>
 </template>
@@ -73,9 +77,9 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container{
 		padding:0 40rpx;
-		margin:0 auto;
+		margin:20rpx auto;
 	}
 </style>

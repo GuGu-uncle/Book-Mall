@@ -31,6 +31,13 @@
 			:list="classification" 
 			:scrollable='false' 
 			lineWidth="80rpx"
+			lineHeight="7"
+			:activeStyle="{
+				color: '#303133',
+				fontWeight: 'bold',
+				transform: 'scale(1.05)',
+				fontSize:'34rpx'
+			}"
 			@click="commodityClassification"
 		></u-tabs>
 		
@@ -115,7 +122,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container{
 		padding:20rpx;
 	}

@@ -107,7 +107,7 @@
 	}
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 	.header{
 		width: 260rpx;
 		font-size:60rpx;

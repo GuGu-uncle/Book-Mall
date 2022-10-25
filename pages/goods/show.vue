@@ -1,6 +1,6 @@
 <template>
+	<!-- 商品详情 -->
 	<view class="container" >
-		
 		<!-- 顶部 -->
 		<view class="top">
 			<view class="img padding">
@@ -8,8 +8,8 @@
 			</view>
 			<view class="title">{{goods.title}}</view>
 			<view class="price-sales">
-				<view class="price">￥ {{goods.price || ''}}</view>
-				<view class="sales">销量 {{goods.sales || ''}}</view>
+				<view class="price">￥ {{goods.price}}</view>
+				<view class="sales">销量 {{goods.sales}}</view>
 			</view>
 		</view>
 		
@@ -19,6 +19,7 @@
 				:list="list" 
 				:scrollable="false" 
 				lineWidth="150rpx"
+				lineHeight="7"
 				lineColor="#f56c6c"
 				:activeStyle="{
 					color: '#303133',
@@ -32,12 +33,12 @@
 		</view>
 		
 		<!-- 商品详情 -->
-		<view class="details" v-show="isShow===0">
+		<view class="details self-adaption" v-show="isShow===0">
 			<u-parse :content="content"></u-parse>
 		</view>
 		
 		<!-- 商品评论 -->
-		<scroll-view scroll-y class="commentList" v-show="isShow===1" ref="comment">
+		<scroll-view scroll-y class="commentList self-adaption" v-show="isShow===1" ref="comment">
 			<view class="comment" v-for="item in commentList" :key="item.id">
 				<u--image :showLoading="true" :src="item.user.avatar_url" width="80rpx" height="80rpx" @click="click"></u--image>
 				<view class="info">
@@ -49,7 +50,7 @@
 		</scroll-view>
 		
 		<!-- 推荐商品 -->
-		<view class="recommend" v-show="isShow===2">
+		<view class="recommend self-adaption" v-show="isShow===2">
 			<goods-cart :goodsList="like_goods"></goods-cart>
 		</view>
 		
@@ -157,8 +158,16 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container{
+		height: 94vh;
+		display: flex;
+		flex-direction: column;
+		
+		.self-adaption {
+			flex-grow: 1;
+		}
+		
 		.top{
 			padding:0 20rpx;
 			// 商品图片
@@ -194,7 +203,6 @@
 		// 商品评论
 		.commentList{
 			padding:20rpx;
-			height: 640rpx;
 			.comment{
 				display:flex;
 				margin-bottom:20rpx;
